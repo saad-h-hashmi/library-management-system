@@ -1,0 +1,12 @@
+# Local secrets / settings
+backend/config.php
+.env
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
