@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Library Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2>📚 UniLibrary</h2>
+        </div>
+        <ul class="nav-links">
+            <li data-target="dashboard-view" class="active">📊 Dashboard</li>
+            <li data-target="books-view">📖 Manage Books</li>
+            <li data-target="students-view">🎓 Manage Students</li>
+            <li data-target="issue-view">🔄 Issue / Return</li>
+            <li data-target="overdue-view">⚠️ Overdue Books</li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <header>
+            <h1 id="page-title">Dashboard</h1>
+            <div class="user-profile">Admin User</div>
+        </header>
+
+        <div class="content-wrapper">
+            <div id="dashboard-view" class="view active">
+                <div class="cards-grid">
+                    <div class="card card-blue">
+                        <h3>Total Books</h3>
+                        <p class="stat" id="total-books-count">–</p>
+                    </div>
+                    <div class="card card-green">
+                        <h3>Active Members</h3>
+                        <p class="stat" id="active-members-count">–</p>
+                    </div>
+                    <div class="card card-purple">
+                        <h3>Books Issued</h3>
+                        <p class="stat" id="books-issued-count">–</p>
+                    </div>
+                    <div class="card card-red">
+                        <h3>Overdue Books</h3>
+                        <p class="stat" id="overdue-books-count">–</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="books-view" class="view">
+                <div class="form-card">
+                    <h2>Add New Book</h2>
+                    <form id="addBookForm">
+                        <div class="form-group"><label>ISBN</label><input type="text" id="b_isbn" required></div>
+                        <div class="form-group"><label>Title</label><input type="text" id="b_title" required></div>
+                        <div class="form-group"><label>Author</label><input type="text" id="b_author" required></div>
+                        <div class="form-group">
+                            <label>Category ID</label>
+                            <input type="number" id="b_category" min="1" placeholder="1=CS, 2=SE, 3=Math, 4=Literature" required>
+                        </div>
+                        <div class="form-group"><label>Publication Year</label><input type="number" id="b_year" min="1901" max="2155"></div>
+                        <button type="submit" class="btn-primary">Save Book</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="students-view" class="view">
+                <div class="form-card">
+                    <h2>Register Student</h2>
+                    <form id="addStudentForm">
+                        <div class="form-group"><label>Roll Number</label><input type="text" id="s_roll" placeholder="BCS-05-123" required></div>
+                        <div class="form-group"><label>First Name</label><input type="text" id="s_fname" required></div>
+                        <div class="form-group"><label>Last Name</label><input type="text" id="s_lname" required></div>
+                        <div class="form-group"><label>Email</label><input type="email" id="s_email" required></div>
+                        <div class="form-group"><label>Phone</label><input type="text" id="s_phone"></div>
+                        <button type="submit" class="btn-primary">Register Student</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="issue-view" class="view">
+                <div class="cards-grid">
+                    <div class="form-card">
+                        <h2>Issue a Book</h2>
+                        <form id="issueBookForm">
+                            <div class="form-group"><label>Member ID</label><input type="number" id="i_member" min="1" required></div>
+                            <div class="form-group"><label>Book ID</label><input type="number" id="i_book" min="1" required></div>
+                            <div class="form-group"><label>Librarian ID</label><input type="number" id="i_librarian" min="1" required></div>
+                            <div class="form-group"><label>Due Date</label><input type="date" id="i_due" required></div>
+                            <button type="submit" class="btn-primary">Issue Book</button>
+                        </form>
+                    </div>
+                    
+                    <div class="form-card">
+                        <h2>Return a Book</h2>
+                        <form id="returnBookForm">
+                            <div class="form-group"><label>Transaction / Issue ID</label><input type="number" id="r_issue" min="1" required></div>
+                            <button type="submit" class="btn-secondary">Process Return & Calculate Fine</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div id="overdue-view" class="view">
+                <div class="table-card">
+                    <h2>Overdue Action Required</h2>
+                    <div class="toolbar">
+                        <button type="button" id="refreshOverdueBtn" class="btn-primary">Refresh Data</button>
+                        <button type="button" id="sendEmailsBtn" class="btn-secondary">Email Overdue Students</button>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Issue ID</th>
+                                <th>Book Title</th>
+                                <th>Student Email</th>
+                                <th>Due Date</th>
+                                <th>Days Late</th>
+                                <th>Current Fine (PKR)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="overdue-tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
